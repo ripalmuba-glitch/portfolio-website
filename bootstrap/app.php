@@ -1,9 +1,9 @@
 <?php
 
-use Illuminate.Foundation\Application;
+use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
-use Illuminate\Http\Middleware\TrustProxies; // <-- 1. Pastikan ini di-import
+use Illuminate\Http\Middleware\TrustProxies; // 1. Import class
 
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
@@ -13,7 +13,7 @@ return Application::configure(basePath: dirname(__DIR__))
     )
     ->withMiddleware(function (Middleware $middleware) {
 
-        // 2. Baris ini sangat penting untuk deployment Railway
+        // 2. Tambahkan baris ini untuk Railway
         $middleware->trustProxies(at: TrustProxies::all());
 
     })
