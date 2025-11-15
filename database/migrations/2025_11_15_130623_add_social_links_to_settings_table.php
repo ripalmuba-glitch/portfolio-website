@@ -3,7 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-use Illuminate\Support\Facades\DB; // <-- Import DB Facade
+use Illuminate\Support\Facades\DB; // Pastikan ini di-import
 
 return new class extends Migration
 {
@@ -23,18 +23,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        $settings = [];
+        // Loop dan gunakan insertOrIgnore
         foreach ($this->socialKeys as $key) {
-            $settings[] = [
+            DB::table('settings')->insertOrIgnore([
                 'key' => $key,
                 'value' => '', // Nilai default kosong
                 'created_at' => now(),
                 'updated_at' => now(),
-            ];
+            ]);
         }
-
-        // Masukkan data baru ke tabel settings
-        DB::table('settings')->insert($settings);
     }
 
     /**
